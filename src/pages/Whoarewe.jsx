@@ -23,7 +23,7 @@ export default function Whoarewe() {
       desc: "Some text that describes me lorem ipsum ipsum lorem.",
       email: "example@example.com",
     },
-    // ...add more if needed to demonstrate scrolling
+    // ...add more to demonstrate scrolling
   ];
 
   const chairs = [

@@ -88,12 +88,13 @@ export default function Cart() {
               <div>Subtotal</div>
               <div style={{ fontWeight: 700 }}>${subtotal.toFixed(2)}</div>
             </div>
-            <div style={{ display: "flex", gap: 8 }}>
-              <button onClick={checkout} style={{ flex: 1, background: "#0077cc", color: "#fff", border: "none", padding: "8px 10px", borderRadius: 6 }}>Checkout</button>
-              <button onClick={clearCart} style={{ padding: "8px 10px", border: "1px solid #ddd", borderRadius: 6 }}>Clear</button>
+            <div style>
+              <button onClick={checkout}  style={{ flex: 1, background: "#0077cc", color: "#fff", border: "none", padding: "8px 10px", borderRadius: 6 }}>Checkout </button>
+
+            </div>
+           
             </div>
           </div>
-        </div>
       )}
     </aside>
   );
