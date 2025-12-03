@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "main": "checkout-server-example.js",
   "scripts": {
+    "start": "node checkout-server-example.js",
+    "dev": "node checkout-server-example.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

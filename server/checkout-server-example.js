@@ -1,48 +1,38 @@
-// Example Express server that creates a Stripe Checkout Session
-// Save as server/checkout-server-example.js and run with `node` (install dependencies first)
-
+// Load secret keys from environment variables instead of hard-coding them.
 require('dotenv').config();
-const express = require('express');
+if (!process.env.STRIPE_SECRET_KEY) {
+  console.error('Missing STRIPE_SECRET_KEY in environment. Set it in a .env file or your environment.');
+  process.exit(1);
+}
 const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
-const bodyParser = require('body-parser');
-const cors = require('cors');
+const express = require('express');
 const app = express();
-const PORT = process.env.PORT || 4242;
+app.use(express.static('public'));
 
-app.use(bodyParser.json());
-app.use(cors());
+// The frontend URL where Stripe should redirect after checkout.
+// Set FRONTEND_URL in `server/.env` to your dev frontend (e.g. http://localhost:5173)
+const YOUR_DOMAIN = process.env.FRONTEND_URL || 'http://localhost:5173';
 
 app.post('/create-checkout-session', async (req, res) => {
   try {
-    const { items } = req.body;
-    if (!items || !Array.isArray(items) || items.length === 0) {
-      return res.status(400).json({ error: 'No items provided' });
-    }
-
-    // Build line_items compatible with Stripe Checkout
-    const line_items = items.map(i => ({
-      price_data: {
-        currency: 'usd',
-        product_data: { name: i.name, images: i.image ? [i.image] : undefined },
-        unit_amount: i.unit_amount,
-      },
-      quantity: i.quantity,
-    }));
-
     const session = await stripe.checkout.sessions.create({
-      payment_method_types: ['card'],
+      line_items: [
+        {
+          // Use the PRICE_ID from environment (set in server/.env)
+          price: process.env.PRICE_ID,
+          quantity: 1,
+        },
+      ],
       mode: 'payment',
-      line_items,
-      success_url: `${process.env.FRONTEND_URL || 'http://localhost:3000'}/?checkout=success`,
-      cancel_url: `${process.env.FRONTEND_URL || 'http://localhost:3000'}/?checkout=cancel`,
+      success_url: `${YOUR_DOMAIN}?success=true`,
+      cancel_url: `${YOUR_DOMAIN}?canceled=true`,
     });
 
-    // Return the session ID (or full URL if you prefer)
-    res.json({ sessionId: session.id });
+    res.redirect(303, session.url);
   } catch (err) {
-    console.error(err);
-    res.status(500).json({ error: 'Server error creating checkout session' });
+    console.error('Error creating checkout session:', err);
+    res.status(500).send('Internal Server Error');
   }
 });
 
-app.listen(PORT, () => console.log(`Checkout server listening on port ${PORT}`));
+app.listen(4242, () => console.log('Running on port 4242'));
