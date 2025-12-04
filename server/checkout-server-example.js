@@ -16,6 +16,38 @@ app.use(express.static('public'));
 
 const YOUR_DOMAIN = process.env.FRONTEND_URL || 'http://localhost:5173';
 
+// Endpoint to fetch products from Stripe
+app.get('/products', async (req, res) => {
+  try {
+    const products = await stripe.products.list({
+      active: true,
+      expand: ['data.default_price'],
+      limit: 100,
+    });
+
+    const formattedProducts = products.data.map((product) => {
+      const price = product.default_price;
+      const priceAmount = price && typeof price === 'object' 
+        ? (price.unit_amount / 100) 
+        : 0;
+
+      return {
+        id: product.id,
+        name: product.name,
+        price: priceAmount,
+        img: product.images && product.images.length > 0 ? product.images[0] : null,
+        desc: product.description || '',
+        priceId: price && typeof price === 'object' ? price.id : null,
+      };
+    });
+
+    res.json({ products: formattedProducts });
+  } catch (err) {
+    console.error('Error fetching products:', err);
+    res.status(500).json({ error: 'Failed to fetch products' });
+  }
+});
+
 app.post('/create-checkout-session', async (req, res) => {
   try {
     // If no items sent, allow single-price flow via PRICE_ID

@@ -1,39 +1,4 @@
-function Footer() {
-  return (
-    <footer className="site-footer" role="contentinfo">
-      <div className="container">
-        <div className="footer-grid">
-          <div className="footer-brand">
-            <p className="club-name">Zonta Club of Naples</p>
-            <address>
-              <div>P.O. Box 10911</div>
-              <div>Naples, FL 34101</div>
-              <div>
-                Email: <a href="mailto:info@zonta-naples.org">info@zonta-naples.org</a>
-              </div>
-              <div>
-                Phone: <a href="tel:+19738647087">973-864-7087</a>
-              </div>
-            </address>
-          </div>
-
-          <div className="footer-about">
-            <h3>About Zonta Club of Naples</h3>
-            <p>
-              Zonta Club of Naples is part of tens of thousands of professionals worldwide who
-              demand gender equality and the end of violence against women and girls. We seek to
-              eradicate human trafficking, domestic violence, and child marriage so no woman lives
-              in fear. Zonta provides grants, resources, scholarships and services while advocating
-              change, educating the community and helping direct responders and law enforcement.
-            </p>
-          </div>
-        </div>
-        <div className="footer-bottom">
-          <p>&copy; {new Date().getFullYear()} Zonta Club of Naples. All rights reserved.</p>
-        </div>
-      </div>
-    </footer>
-  );
-}
-
+function Footer() { return ( <footer className="site-footer" role="contentinfo"> <div className="container"> <div className="footer-grid"> <div className="footer-brand"> <p className="club-name">Zonta Club of Naples</p> <address> <div>P.O. Box 10911</div> <div>Naples, FL 34101</div> <div> Email: <a href="mailto:info@zonta-naples.org">info@zonta-naples.org</a> </div> <div> Phone: <a href="tel:+19738647087">973-864-7087</a> </div> </address> </div> <div className="footer-about"> <h3>About Zonta Club of Naples</h3> <p> Zonta Club of Naples is part of tens of thousands of professionals worldwide who demand gender equality and the end of violence against women and girls. We seek to eradicate human trafficking, domestic violence, and child marriage so no woman lives in fear. Zonta provides grants, resources, scholarships and services while advocating change, educating the community and helping direct responders and law enforcement. </p> </div> </div> <div className="footer-bottom"> <p>&copy; {new Date().getFullYear()} Zonta Club of Naples. All rights reserved.</p> </div> </div> </footer> 
+); 
+} 
 export default Footer;
