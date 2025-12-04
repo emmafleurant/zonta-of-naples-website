@@ -63,12 +63,6 @@ export default function Store() {
           <h1>Store</h1>
           <p>Support the Zonta Club of Naples by purchasing official merchandise.</p>
 
-          {loading && <p>Loading products…</p>}
-          {error && (
-            <p style={{ color: "#a00" }}>
-              Could not load products from CMS — showing local items.
-            </p>
-          )}
 
           <section aria-label="product-grid" className="product-grid">
             {products.map((p) => (
