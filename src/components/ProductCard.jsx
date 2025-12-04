@@ -35,7 +35,8 @@ export default function ProductCard({ product }) {
               borderRadius: 6,
               border: "1px solid #ddd",
               background: "#fff",
-              cursor: "pointer"
+              cursor: "pointer", 
+              color: "#000",
             }}
           >
             View
