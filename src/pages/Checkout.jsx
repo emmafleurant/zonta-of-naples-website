@@ -16,11 +16,7 @@ export default function Checkout() {
         </div>
       </section>
 
-      {/*
-        Simple form that posts to the local server endpoint which creates a
-        Stripe Checkout Session. By default this posts to http://localhost:4242
-        — change if your server runs on another host/port.
-      */}
+     
       <form action="/create-checkout-session" method="POST">
         <button type="submit">Checkout</button>
       </form>

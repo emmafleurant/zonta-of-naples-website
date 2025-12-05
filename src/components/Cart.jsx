@@ -15,7 +15,6 @@ const payload = items.map(({ product, qty }) => ({
   image: product.img || null,
 }));
     try {
-      // Use VITE_CHECKOUT_SERVER_URL when explicitly set, otherwise use relative path
       const serverBase = import.meta.env.VITE_CHECKOUT_SERVER_URL ?? '';
       const endpoint = `${serverBase}/create-checkout-session`.replace(/\/+/g, '/').replace(':/', '://');
 
@@ -26,7 +25,6 @@ const payload = items.map(({ product, qty }) => ({
       });
 
       if (!res.ok) {
-        // try to read JSON/text response for better error detail
         let bodyText = '';
         try { bodyText = await res.text(); } catch (e) { /* ignore */ }
         throw new Error(`Failed to create checkout session: ${res.status} ${res.statusText} - ${bodyText}`);

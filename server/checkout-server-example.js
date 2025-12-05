@@ -99,7 +99,6 @@ app.post('/create-checkout-session', async (req, res) => {
 
     res.json({ url: session.url, id: session.id });
   } catch (err) {
-    // Error handling: if Stripe returned helpful info try to include it (safe for dev)
     console.error('Error creating checkout session:', err);
     const status = err && err.status ? err.status : 500;
     const stripeInfo = err && err.raw && err.raw.message ? {
@@ -109,7 +108,6 @@ app.post('/create-checkout-session', async (req, res) => {
       requestId: err.requestId,
     } : {};
 
-    // If we threw a validation object above include it
     const validation = err && err.item ? { validation_item: err.item } : {};
 
     res.status(status).json({
